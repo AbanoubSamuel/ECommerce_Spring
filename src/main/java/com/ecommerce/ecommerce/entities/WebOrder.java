@@ -1,4 +1,4 @@
-package com.ecommerce.ecommerce.model;
+package com.ecommerce.ecommerce.entities;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,6 +15,6 @@ public class WebOrder {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private LocalUser user;
+    private User user;
 
 }

@@ -1,4 +1,4 @@
-package com.ecommerce.ecommerce.model;
+package com.ecommerce.ecommerce.entities;
 
 import jakarta.persistence.*;
 
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "local_user")
-public class LocalUser {
+@Table(name = "user")
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -25,8 +25,8 @@ public class LocalUser {
     @Column(name = "last_name")
     private String last_name;
 
-    @Column(name = "paswword", nullable = false, length = 1000)
-    private String paswword;
+    @Column(name = "password", nullable = false, length = 1000)
+    private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Address> addresses = new ArrayList<>();
@@ -41,14 +41,14 @@ public class LocalUser {
         this.addresses = addresses;
     }
 
-    public String getPaswword()
+    public String getPassword()
     {
-        return paswword;
+        return password;
     }
 
-    public void setPaswword(String paswword)
+    public void setPassword(String password)
     {
-        this.paswword = paswword;
+        this.password = password;
     }
 
     public String getUsername()
@@ -71,22 +71,22 @@ public class LocalUser {
         this.email = email;
     }
 
-    public String getLast_name()
+    public String getLastName()
     {
         return last_name;
     }
 
-    public void setLast_name(String last_name)
+    public void setLastName(String last_name)
     {
         this.last_name = last_name;
     }
 
-    public String getFirst_name()
+    public String getFirstName()
     {
         return first_name;
     }
 
-    public void setFirst_name(String first_name)
+    public void setFirstName(String first_name)
     {
         this.first_name = first_name;
     }
