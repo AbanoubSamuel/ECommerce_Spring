@@ -1,8 +1,9 @@
-package com.ecommerce.ecommerce.service;
+package com.ecommerce.ecommerce.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.ecommerce.ecommerce.entities.User;
+import com.ecommerce.ecommerce.service.JWTService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

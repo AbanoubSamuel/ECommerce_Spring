@@ -5,7 +5,7 @@ import com.ecommerce.ecommerce.api.model.JsonResponse;
 import com.ecommerce.ecommerce.api.model.LoginBody;
 import com.ecommerce.ecommerce.api.model.RegistrationBody;
 import com.ecommerce.ecommerce.entities.User;
-import com.ecommerce.ecommerce.service.UserServiceImpl;
+import com.ecommerce.ecommerce.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;

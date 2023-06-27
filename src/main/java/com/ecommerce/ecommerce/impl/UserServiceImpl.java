@@ -1,4 +1,4 @@
-package com.ecommerce.ecommerce.service;
+package com.ecommerce.ecommerce.impl;
 
 import com.ecommerce.ecommerce.api.exception.UserExistsException;
 import com.ecommerce.ecommerce.api.model.LoginBody;
@@ -6,6 +6,7 @@ import com.ecommerce.ecommerce.api.model.RegistrationBody;
 import com.ecommerce.ecommerce.dao.UserDAO;
 import com.ecommerce.ecommerce.entities.User;
 import com.ecommerce.ecommerce.security.EncryptionService;
+import com.ecommerce.ecommerce.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
