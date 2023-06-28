@@ -9,11 +9,9 @@ import com.ecommerce.ecommerce.impl.UserServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -54,7 +52,15 @@ public class AuthController {
             jsonResponse.setData(jwtToken);
             return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
         }
+    }
 
-
+    @GetMapping("/me")
+    public ResponseEntity<JsonResponse<User>> getLoggedInUserProfile(@AuthenticationPrincipal User user)
+    {
+        JsonResponse<User> jsonResponse = new JsonResponse<>();
+        jsonResponse.setStatus(true);
+        jsonResponse.setMessage("User data fetched successfully");
+        jsonResponse.setData(user);
+        return new ResponseEntity<>(jsonResponse, HttpStatus.OK);
     }
 }

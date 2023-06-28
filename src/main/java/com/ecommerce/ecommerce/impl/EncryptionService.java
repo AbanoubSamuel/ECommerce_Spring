@@ -1,4 +1,4 @@
-package com.ecommerce.ecommerce.security;
+package com.ecommerce.ecommerce.impl;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;

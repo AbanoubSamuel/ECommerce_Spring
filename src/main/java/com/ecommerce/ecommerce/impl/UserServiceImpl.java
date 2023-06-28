@@ -5,7 +5,6 @@ import com.ecommerce.ecommerce.api.model.LoginBody;
 import com.ecommerce.ecommerce.api.model.RegistrationBody;
 import com.ecommerce.ecommerce.dao.UserDAO;
 import com.ecommerce.ecommerce.entities.User;
-import com.ecommerce.ecommerce.security.EncryptionService;
 import com.ecommerce.ecommerce.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class UserServiceImpl implements UserService {
     public User register(RegistrationBody registrationBody) throws UserExistsException
     {
         if (userDAO.findByUsernameIgnoreCase(registrationBody.getUsername()).isPresent()
-                && userDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent()) {
+                || userDAO.findByEmailIgnoreCase(registrationBody.getEmail()).isPresent()) {
             throw new UserExistsException();
         }
         User user = new User();
