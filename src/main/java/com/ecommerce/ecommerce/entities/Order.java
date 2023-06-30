@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "web_order")
-public class WebOrder {
+public class Order {
     @Id
     @Column(name = "id", nullable = false)
     private Long id;
