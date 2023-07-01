@@ -1,9 +1,10 @@
 package com.ecommerce.ecommerce.security;
 
-import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.ecommerce.ecommerce.api.model.JsonResponse;
 import com.ecommerce.ecommerce.dao.UserDAO;
 import com.ecommerce.ecommerce.entities.User;
 import com.ecommerce.ecommerce.impl.JWTServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,6 +38,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
         if (tokenHeader != null && tokenHeader.startsWith("Bearer ")) {
             String token = tokenHeader.substring(7);
             try {
+                System.out.println("JWTRequestFilter");
                 String username = jwtService.getUsername(token);
                 Optional<User> optionalUser = userDAO.findByUsernameIgnoreCase(username);
                 if (optionalUser.isPresent()) {
@@ -45,12 +47,24 @@ public class JWTRequestFilter extends OncePerRequestFilter {
                     authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
-            } catch (JWTDecodeException exception) {
+            } catch (Exception exception) {
+                logger.error("Invalid token: " + exception.getMessage());
 
+                JsonResponse<Object> jsonResponse = new JsonResponse<>();
+                jsonResponse.setStatus(false);
+                jsonResponse.setMessage("Invalid token !");
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                String jsonResponseJson = objectMapper.writeValueAsString(jsonResponse);
+                // Set the response content type and write JSON response
+                response.setContentType("application/json");
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write(jsonResponseJson);
+                response.getWriter().flush();
+                return;
             }
 
         }
         filterChain.doFilter(request, response);
-
     }
 }

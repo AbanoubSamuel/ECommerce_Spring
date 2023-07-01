@@ -2,6 +2,7 @@ package com.ecommerce.ecommerce.impl;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.interfaces.DecodedJWT;
 import com.ecommerce.ecommerce.entities.User;
 import com.ecommerce.ecommerce.service.JWTService;
 import jakarta.annotation.PostConstruct;
@@ -33,15 +34,20 @@ public class JWTServiceImpl implements JWTService {
 
     public String generateJWT(User user)
     {
+        int expiryInDays = 7;
+        expiryInSeconds = expiryInDays * 24 * 60 * 60; // Convert days to seconds
+
         return JWT.create()
                 .withClaim(USERNAME_KEY, user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + (1000 + expiryInSeconds)))
+                .withExpiresAt(new Date(System.currentTimeMillis() + (1000L * expiryInSeconds)))
                 .withIssuer(issuer)
                 .sign(algorithm);
     }
 
 
-    public String getUsername(String token) {
-        return JWT.decode(token).getClaim(USERNAME_KEY).asString();
+    public String getUsername(String token)
+    {
+        DecodedJWT jwt = JWT.require(algorithm).withIssuer(issuer).build().verify(token);
+        return jwt.getClaim(USERNAME_KEY).asString();
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 public class AuthController {
     private UserServiceImpl userService;
 
@@ -44,7 +44,7 @@ public class AuthController {
         if (jwtToken == null) {
 
             jsonResponse.setStatus(false);
-            jsonResponse.setMessage("Failed to login");
+            jsonResponse.setMessage("Wrong username or password");
             return new ResponseEntity<>(jsonResponse, HttpStatus.BAD_REQUEST);
         } else {
             jsonResponse.setStatus(true);
